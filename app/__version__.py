@@ -1,0 +1,6 @@
+__title__ = "session-guard"
+__description__ = "OpenSource project to manage user sessions"
+__url__ = "https://https://github.com/ppcantidio/session-guard"
+__version__ = "0.0.1"
+__author__ = "Pedro Schauenberg F. Cantidio"
+__author_email__ = "ppcantidio@gmail.com"
