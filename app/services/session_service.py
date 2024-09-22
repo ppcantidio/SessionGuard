@@ -64,7 +64,7 @@ class SessionService:
         session = await self._map_session(session_str)
         return session
 
-    async def logout(self, session_id: str, user_id: str) -> None:
+    async def logout(self, session_id: UUID, user_id: UUID) -> None:
         key = self.session_key(user_id, session_id)
         await self.redis.delete(key)
 

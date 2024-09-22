@@ -11,9 +11,8 @@ class UserService:
 
     async def create_user(
         self,
-        username: str,
         email: Optional[str],
-        password: Optional[str],
+        hashed_password: Optional[str],
         provider: Optional[ProviderEnum] = None,
         provider_id: Optional[str] = None,
     ) -> dict:
@@ -23,9 +22,8 @@ class UserService:
         group = await self.get_default_group()
 
         user = User(
-            username=username,
             email=email,
-            password=password,
+            hashed_password=hashed_password,
             provider_name=provider,
             provider_id=provider_id,
             groups=[group],

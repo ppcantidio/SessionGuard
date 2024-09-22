@@ -1,11 +1,12 @@
 import httpx
 
 from app.config import app_config
-from app.gateways.models.github_models import GitHubUser
 from app.models.auth_models import ProviderTokens, Token
+from app.oauth2.models.github_models import GitHubUser
+from app.oauth2.oauth2_interface import OAuth2Interface, OAuth2User
 
 
-class GithubGateway:
+class GitHubOAuth2(OAuth2Interface):
     async def get_token(self, code: str) -> ProviderTokens:
         url = "https://github.com/login/oauth/access_token"
 
@@ -26,7 +27,7 @@ class GithubGateway:
             provider_tokens = ProviderTokens(access_token=access_token)
             return provider_tokens
 
-    async def get_user(self, token: str) -> GitHubUser:
+    async def get_user(self, token: str) -> OAuth2User:
         url = "https://api.github.com/user"
 
         async with httpx.AsyncClient() as client:
@@ -40,4 +41,8 @@ class GithubGateway:
             json_response = response.json()
 
             github_user = GitHubUser(**json_response)
-            return github_user
+            oauth_user = OAuth2User(
+                id=github_user.id,
+                email=github_user.email,
+            )
+            return oauth_user
