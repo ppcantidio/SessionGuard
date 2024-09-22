@@ -4,7 +4,7 @@ from app import __version__
 
 router = APIRouter(tags=["Healthcheck"])
 
-_INFO = {"applicacao": __version__.__title__, "versao": __version__.__version__}
+_INFO = {"application": __version__.__title__, "version": __version__.__version__}
 
 
 @router.get("/healthcheck")

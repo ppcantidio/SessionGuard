@@ -1,12 +1,15 @@
 from typing import List, Optional
+from uuid import uuid4
 
-from models import Role
-from sqlmodel import Field, Relationship, SQLModel
+from models import Group
+from sqlmodel import UUID, Field, Relationship, SQLModel
 
 
 class User(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: Optional[UUID] = Field(default_factory=uuid4, primary_key=True)
     username: str
     email: str
+    provider_name: Optional[str] = None
+    provider_id: Optional[str] = None
 
-    roles: List["Role"] = Relationship(back_populates="users")
+    roles: List["Group"] = Relationship(back_populates="users")

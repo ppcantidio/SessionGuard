@@ -5,7 +5,7 @@ from uuid import uuid4
 
 import pytest
 
-from app.models.session import Session
+from app.models.auth_models import Session
 from app.models.token_data import TokenData
 from app.services.session_service import SessionService
 

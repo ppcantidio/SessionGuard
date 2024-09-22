@@ -2,8 +2,7 @@ from fastapi import FastAPI
 
 from app import __version__, events
 from app.logger import logger
-from app.routers import health
-from app.routers import v1
+from app.routers import health, v1
 
 
 def add_events(app: FastAPI) -> None:

@@ -8,9 +8,8 @@ class AppConfig(BaseSettings):
     log_level: Literal[10, 20, 30, 40, 50] = logging.DEBUG
     secret_key: str = "your_secret_key"
     algorithm: str = "HS256"
-    acess_token_expire_minutes: int = 30
-    root_username: str = "root"
-    root_password: str = "root"
+    access_token_lifetime_minutes: int = 60
+    session_lifetime_days: int = 30
 
     class Config:
         case_sensitive = False
