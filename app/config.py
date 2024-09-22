@@ -10,6 +10,8 @@ class AppConfig(BaseSettings):
     algorithm: str = "HS256"
     access_token_lifetime_minutes: int = 60
     session_lifetime_days: int = 30
+    github_client_id: str
+    github_client_secret: str
 
     class Config:
         case_sensitive = False

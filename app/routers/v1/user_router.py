@@ -4,7 +4,7 @@ router = APIRouter(tags=["User"], prefix="/users")
 
 
 @router.post("/")
-async def new_user():
+async def new_user_from_github():
     return {"message": "user"}
 
 

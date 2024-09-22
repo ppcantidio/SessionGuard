@@ -1,36 +1,30 @@
 from datetime import datetime
-from typing import List, Optional
+from typing import Optional
 
 from pydantic import UUID4, BaseModel, ConfigDict
 
+from app.models.user import User
+
 json_encoders = {datetime: lambda v: int(v.timestamp()), UUID4: lambda v: str(v)}
-
-
-class UserSession(BaseModel):
-    user_id: UUID4
-    username: str
-    provider_name: Optional[str] = None
-    user_provider_id: Optional[str] = None
-    permissions: List[str]
 
 
 class Token(BaseModel):
     model_config = ConfigDict(json_encoders=json_encoders, strict=False)
 
     token: str
-    expires_at: datetime
+    expires_at: Optional[datetime] = None
 
 
 class ProviderTokens(BaseModel):
     access_token: Token
-    refresh_token: Token
+    refresh_token: Optional[Token] = None
 
 
 class SanitazedSession(BaseModel):
     model_config = ConfigDict(strict=False)
 
     session_id: str
-    user: UserSession
+    user: User
     created_at: datetime
     expires_at: datetime
 
@@ -52,6 +46,6 @@ class TokenData(BaseModel):
     model_config = ConfigDict(json_encoders=json_encoders, strict=False)
 
     session_id: str
-    user: UserSession
+    user: User
     exp: datetime
     iat: datetime

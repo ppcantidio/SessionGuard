@@ -12,4 +12,4 @@ class User(SQLModel, table=True):
     provider_name: Optional[str] = None
     provider_id: Optional[str] = None
 
-    roles: List["Group"] = Relationship(back_populates="users")
+    groups: List["Group"] = Relationship(back_populates="users")

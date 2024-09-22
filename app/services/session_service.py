@@ -9,7 +9,7 @@ import redis.asyncio as aioredis
 
 from app.config import app_config
 from app.models import User
-from app.models.auth_models import ProviderTokens, Session, Token, UserSession
+from app.models.auth_models import ProviderTokens, Session, Token
 
 
 class SessionService:
@@ -20,7 +20,9 @@ class SessionService:
         return f"session:{user_id}:{session_id}"
 
     async def create_session(
-        self, user: User, provider_tokens: Optional[ProviderTokens] = None
+        self,
+        user: User,
+        provider_tokens: Optional[ProviderTokens] = None,
     ) -> Session:
         session_id = uuid4()
 
@@ -35,24 +37,16 @@ class SessionService:
             token=secrets.token_urlsafe(64), expires_at=refresh_token_expires_at
         )
 
-        user_session = UserSession(
-            user_id=user.user_id,
-            username=user.username,
-            provider_name=user.provider_name,
-            user_provider_id=user.provider_id,
-            permissions=user.permissions,
-        )
-
         session = Session(
             session_id=session_id,
-            user=user_session,
+            user=user,
             created_at=created_at,
             expires_at=expires_at,
             provider_tokens=provider_tokens,
             refresh_token=refresh_token,
         )
 
-        key = self.session_key(user_session.user_id, session_id)
+        key = self.session_key(user.user_id, session_id)
 
         session_json_str = session.model_dump_json()
 
