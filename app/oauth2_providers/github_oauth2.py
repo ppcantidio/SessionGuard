@@ -2,8 +2,8 @@ import httpx
 
 from app.config import app_config
 from app.models.auth_models import ProviderTokens, Token
-from app.oauth2.models.github_models import GitHubUser
-from app.oauth2.oauth2_interface import OAuth2Interface, OAuth2User
+from app.oauth2_providers.models.github_models import GitHubUser
+from app.oauth2_providers.oauth2_interface import OAuth2Interface, OAuth2User
 
 
 class GitHubOAuth2(OAuth2Interface):

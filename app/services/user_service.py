@@ -15,7 +15,7 @@ class UserService:
         hashed_password: Optional[str],
         provider: Optional[ProviderEnum] = None,
         provider_id: Optional[str] = None,
-    ) -> dict:
+    ) -> User:
         if email is not None:
             await self.verify_user_by_email(email)
 
